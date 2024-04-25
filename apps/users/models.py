@@ -25,10 +25,10 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     username = models.CharField(max_length=10, null=False, unique=True)
     email = models.EmailField(unique=True, null=False)
     is_staff = models.BooleanField(default=False)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=False, blank=True)
+    role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
-    age = models.IntegerField(null=False, blank=False)
+    age = models.IntegerField(null=True, blank=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length=150, null=True, blank=True)
 

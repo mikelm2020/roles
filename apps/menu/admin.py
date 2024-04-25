@@ -1,3 +1,33 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Menu, OptionMenu
+
+
+class MenuAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "base_url",
+    )
+    search_fields = (
+        "id",
+        "name",
+    )
+    ordering = ("id",)
+
+
+class OptionMenuAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "link_url",
+    )
+    search_fields = (
+        "id",
+        "name",
+    )
+    ordering = ("id",)
+
+
+admin.site.register(Menu, MenuAdmin)
+admin.site.register(OptionMenu, OptionMenuAdmin)
