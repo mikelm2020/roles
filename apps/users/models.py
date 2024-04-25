@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
 from apps.abstracts.models import AbstractModel
+from apps.roles.models import Roles
 
 from .managers import UserManager
 
@@ -24,6 +25,7 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     username = models.CharField(max_length=10, null=False, unique=True)
     email = models.EmailField(unique=True, null=False)
     is_staff = models.BooleanField(default=False)
+    role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=False, blank=True)
     name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField(null=False, blank=False)
