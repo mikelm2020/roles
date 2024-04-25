@@ -47,4 +47,4 @@ class OptionMenu(AbstractModel):
         verbose_name_plural = "Opciones de menu"
 
     def __str__(self):
-        return f"<{self.menu_id.name},{self.name}>"
+        return f"<{self.menu.name},{self.name}>"

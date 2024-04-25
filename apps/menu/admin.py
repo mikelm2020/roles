@@ -18,6 +18,7 @@ class MenuAdmin(admin.ModelAdmin):
 
 class OptionMenuAdmin(admin.ModelAdmin):
     list_display = (
+        "menu",
         "id",
         "name",
         "link_url",
