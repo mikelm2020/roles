@@ -1,6 +1,7 @@
 from django.db import models
 
 from apps.abstracts.models import AbstractModel
+from apps.menu.models import Menu
 
 
 class Roles(AbstractModel):
@@ -12,7 +13,7 @@ class Roles(AbstractModel):
     """
 
     name = models.CharField(max_length=15, null=False)
-    # menu = models.ManyToManyField(Menu, blank=True, null=True)
+    menu = models.ManyToManyField(Menu, blank=False, null=False)
 
     class Meta:
         verbose_name = "Rol"
