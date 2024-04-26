@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
@@ -12,7 +14,8 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import LoginForm, UpdatePasswordForm, UserRegisterForm
+from .forms import LoginForm, UpdatePasswordForm, UserRegisterForm, VerificationForm
+from .functions import code_generator
 from .models import User
 
 
@@ -42,7 +45,10 @@ class UserCreateView(FormView):
     success_url = reverse_lazy("users_app:user_success")
 
     def form_valid(self, form):
-        User.objects.create_user(
+        # generate the random code
+        random_code = code_generator()
+
+        user = User.objects.create_user(
             form.cleaned_data["username"],
             form.cleaned_data["email"],
             form.cleaned_data["password1"],
@@ -52,8 +58,34 @@ class UserCreateView(FormView):
             phone=form.cleaned_data["phone"],
             address=form.cleaned_data["address"],
             role=form.cleaned_data["role"],
+            register_code=random_code,
         )
-        return super(UserCreateView, self).form_valid(form)
+        # Send the register_code to user's email address
+        # send_mail(
+        #     "Bienvenido al sistema",
+        #     f"Bienvenido al sistema, tu codigo de registro es: {random_code}",
+        #     "
+        subject = "Confrimación de email"
+        message = f"Código de verificación: {random_code}"
+        sender_email = settings.EMAIL_HOST_USER
+        send_mail(
+            subject,
+            message,
+            sender_email,
+            [
+                form.cleaned_data["email"],
+            ],
+        )
+        # rederigite to validation page
+
+        return HttpResponseRedirect(
+            reverse(
+                "users_app:user_verification",
+                kwargs={
+                    "pk": user.id,
+                },
+            ),
+        )
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
@@ -121,3 +153,22 @@ class UpdatePassword(LoginRequiredMixin, FormView):
 
         logout(self.request)
         return super(UpdatePassword, self).form_valid(form)
+
+
+class RegisterCodeVerificationView(FormView):
+    template_name = "users/verification.html"
+    form_class = VerificationForm
+    success_url = reverse_lazy("users_app:user_login")
+
+    def get_form_kwargs(self):
+        kwargs = super(RegisterCodeVerificationView, self).get_form_kwargs()
+        kwargs.update(
+            {
+                "pk": self.kwargs["pk"],
+            }
+        )
+        return kwargs
+
+    def form_valid(self, form):
+        User.objects.filter(id=self.kwargs["pk"]).update(is_active=True)
+        return super(RegisterCodeVerificationView, self).form_valid(form)

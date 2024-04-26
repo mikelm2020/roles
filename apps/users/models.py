@@ -32,6 +32,8 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     phone = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length=150, null=True, blank=True)
     role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=True, blank=True)
+    register_code = models.CharField(max_length=6, blank=True)
+    is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"

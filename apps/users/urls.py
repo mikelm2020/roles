@@ -50,4 +50,9 @@ urlpatterns = [
         views.UpdatePassword.as_view(),
         name="update_password",
     ),
+    path(
+        "user-verification/<pk>/",
+        views.RegisterCodeVerificationView.as_view(),
+        name="user_verification",
+    ),
 ]

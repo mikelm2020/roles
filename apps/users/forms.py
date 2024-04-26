@@ -121,3 +121,24 @@ class UpdatePasswordForm(forms.Form):
                 "La contraseña debe tener al menos 8 caracteres",
             )
         return self.cleaned_data["password2"]
+
+
+class VerificationForm(forms.Form):
+    register_code = forms.CharField(required=True, max_length=6)
+
+    def __init__(self, pk, *args, **kwargs):
+        self.user_id = pk
+        return super(VerificationForm, self).__init__(*args, **kwargs)
+
+    def clean_register_code(self):
+        obtained_code = self.cleaned_data["register_code"]
+        if len(obtained_code) == 6:
+            # Verficate if the obtained code and the user id are valids
+            active = User.objects.validation_of_code(
+                self.user_id,
+                obtained_code,
+            )
+            if not active:
+                raise forms.ValidationError("El código es incorrecto")
+        else:
+            raise forms.ValidationError("El código es incorrecto")

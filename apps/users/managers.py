@@ -62,7 +62,7 @@ class UserManager(BaseUserManager, models.Manager):
             obj: The private method for create an user
         """
         return self._create_user(
-            username, email, password, False, False, True, **extra_fields
+            username, email, password, False, False, False, **extra_fields
         )
 
     def create_superuser(self, username, email, password=None, **extra_fields):
@@ -81,3 +81,15 @@ class UserManager(BaseUserManager, models.Manager):
         return self._create_user(
             username, email, password, True, True, True, **extra_fields
         )
+
+    def validation_of_code(self, user_id, validation_code):
+        """Method for validate the code
+
+        Args:
+            user_id (int): id of the user
+            validation_code (str): register_code of the user
+
+        Returns:
+            bool: validation of code and user id
+        """
+        return self.filter(id=user_id, register_code=validation_code).exists()
