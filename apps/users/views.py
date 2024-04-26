@@ -1,5 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import (
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 from django.views.generic.edit import FormView
 
 from .forms import UserRegisterForm
@@ -42,3 +48,19 @@ class UserCreateView(FormView):
             role=form.cleaned_data["role"],
         )
         return super(UserCreateView, self).form_valid(form)
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    template_name = "users/update.html"
+    fields = [
+        "name",
+        "menu",
+    ]
+    success_url = reverse_lazy("users_app:user_success")
+
+
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = "users/delete.html"
+    success_url = reverse_lazy("users_app:user_success")

@@ -25,4 +25,14 @@ urlpatterns = [
         views.SuccessView.as_view(),
         name="user_success",
     ),
+    path(
+        "update-user/<pk>/",
+        views.UserUpdateView.as_view(),
+        name="update_user",
+    ),
+    path(
+        "delete-user/<pk>/",
+        views.UserDeleteView.as_view(),
+        name="delete_user",
+    ),
 ]
