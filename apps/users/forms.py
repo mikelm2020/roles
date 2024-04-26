@@ -96,3 +96,28 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("Los datos del usuario no son correctos")
 
         return cleaned_data
+
+
+class UpdatePasswordForm(forms.Form):
+    password1 = forms.CharField(
+        label="Contraseña",
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Contraseña actual"},
+        ),
+    )
+    password2 = forms.CharField(
+        label="Contraseña",
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Contraseña nueva"},
+        ),
+    )
+
+    def clean_password2(self):
+        if len(self.cleaned_data["password2"]) < 8:
+            # self.add_error("password1", "La contraseña debe tener al menos 8 caracteres")
+            raise forms.ValidationError(
+                "La contraseña debe tener al menos 8 caracteres",
+            )
+        return self.cleaned_data["password2"]

@@ -45,4 +45,9 @@ urlpatterns = [
         views.LogoutView.as_view(),
         name="user_logout",
     ),
+    path(
+        "update-password",
+        views.UpdatePassword.as_view(),
+        name="update_password",
+    ),
 ]

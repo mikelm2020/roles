@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
@@ -11,21 +12,24 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import LoginForm, UserRegisterForm
+from .forms import LoginForm, UpdatePasswordForm, UserRegisterForm
 from .models import User
 
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
+    model = User
     context_object_name = "users_list"
 
     paginate_by = 10
     ordering = ["-id"]
     queryset = User.objects.all()
+    login_url = reverse_lazy("users_app:user_login")
 
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = "users/user_detail.html"
+    login_url = reverse_lazy("users_app:user_login")
 
 
 class SuccessView(TemplateView):
@@ -52,7 +56,7 @@ class UserCreateView(FormView):
         return super(UserCreateView, self).form_valid(form)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = "users/update.html"
     fields = [
@@ -66,12 +70,14 @@ class UserUpdateView(UpdateView):
         "role",
     ]
     success_url = reverse_lazy("users_app:user_success")
+    login_url = reverse_lazy("users_app:user_login")
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = "users/delete.html"
     success_url = reverse_lazy("users_app:user_success")
+    login_url = reverse_lazy("users_app:user_login")
 
 
 class Login(FormView):
@@ -95,3 +101,23 @@ class LogoutView(View):
         return HttpResponseRedirect(
             reverse("users_app:user_login"),
         )
+
+
+class UpdatePassword(LoginRequiredMixin, FormView):
+    template_name = "users/update_password.html"
+    form_class = UpdatePasswordForm
+    login_url = reverse_lazy("users_app:user_login")
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        user = authenticate(
+            username=current_user.username,
+            password=form.cleaned_data["password1"],
+        )
+        if user:
+            new_password = form.cleaned_data["password2"]
+            current_user.set_password(new_password)
+            current_user.save()
+
+        logout(self.request)
+        return super(UpdatePassword, self).form_valid(form)
