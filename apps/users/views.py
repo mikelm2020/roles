@@ -1,4 +1,5 @@
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import FormView
 
 from .forms import UserRegisterForm
@@ -19,10 +20,14 @@ class UserDetailView(DetailView):
     template_name = "users/user_detail.html"
 
 
+class SuccessView(TemplateView):
+    template_name = "users/success.html"
+
+
 class UserCreateView(FormView):
     template_name = "users/add.html"
     form_class = UserRegisterForm
-    success_url = "/"
+    success_url = reverse_lazy("users_app:user_success")
 
     def form_valid(self, form):
         User.objects.create_user(
