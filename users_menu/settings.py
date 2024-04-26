@@ -88,7 +88,7 @@ ROOT_URLCONF = "users_menu.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,6 +100,8 @@ TEMPLATES = [
         },
     },
 ]
+
+print("Template DIRS:", [BASE_DIR / "templates"])
 
 WSGI_APPLICATION = "users_menu.wsgi.application"
 
