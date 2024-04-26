@@ -13,6 +13,7 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     Args:
         username ( str ): knick name.
         email ( str ): email of the user
+        rol ( str ): role of the user
         is_staff ( bool ): is an user with permissions of the admin panel?
         name ( str ): name of the user
         last_name ( str ): last name of the user
@@ -25,12 +26,12 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     username = models.CharField(max_length=10, null=False, unique=True)
     email = models.EmailField(unique=True, null=False)
     is_staff = models.BooleanField(default=False)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField(null=True, blank=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length=150, null=True, blank=True)
+    role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=True, blank=True)
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
