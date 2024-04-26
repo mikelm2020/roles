@@ -25,4 +25,14 @@ urlpatterns = [
         views.SuccessView.as_view(),
         name="role_success",
     ),
+    path(
+        "update-rol/<pk>/",
+        views.RoleUpdateView.as_view(),
+        name="update_rol",
+    ),
+    path(
+        "delete-rol/<pk>/",
+        views.RoleDeleteView.as_view(),
+        name="delete_rol",
+    ),
 ]

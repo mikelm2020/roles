@@ -1,6 +1,14 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.views.generic import (
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
+from django.views.generic.edit import FormView
 
+from .forms import RoleRegisterForm
 from .models import Roles
 
 
@@ -22,11 +30,30 @@ class SuccessView(TemplateView):
     template_name = "roles/success.html"
 
 
-class RoleCreateView(CreateView):
-    model = Roles
+class RoleCreateView(FormView):
+    form_class = RoleRegisterForm
     template_name = "roles/add.html"
+    success_url = reverse_lazy("role_app:role_success")
+
+    def form_valid(self, form):
+        Roles.objects.create(
+            name=form.cleaned_data["name"],
+            menu=form.cleaned_data["menu"],
+        )
+        return super(RoleCreateView, self).form_valid(form)
+
+
+class RoleUpdateView(UpdateView):
+    model = Roles
+    template_name = "roles/update.html"
     fields = [
         "name",
         "menu",
     ]
+    success_url = reverse_lazy("role_app:role_success")
+
+
+class RoleDeleteView(DeleteView):
+    model = Roles
+    template_name = "roles/delete.html"
     success_url = reverse_lazy("role_app:role_success")
