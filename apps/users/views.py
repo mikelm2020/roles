@@ -20,3 +20,14 @@ class UserDetailView(DetailView):
 class UserCreateView(CreateView):
     model = User
     template_name = "users/add.html"
+    fields = [
+        "username",
+        "email",
+        "name",
+        "last_name",
+        "age",
+        "phone",
+        "address",
+        "role",
+    ]
+    success_url = "."
