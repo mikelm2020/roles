@@ -35,4 +35,14 @@ urlpatterns = [
         views.UserDeleteView.as_view(),
         name="delete_user",
     ),
+    path(
+        "login",
+        views.Login.as_view(),
+        name="user_login",
+    ),
+    path(
+        "logout",
+        views.LogoutView.as_view(),
+        name="user_logout",
+    ),
 ]

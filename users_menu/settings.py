@@ -65,6 +65,7 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
+    "apps.home",
     "apps.menu",
     "apps.message",
     "apps.roles",
