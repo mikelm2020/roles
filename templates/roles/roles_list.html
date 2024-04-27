@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Lista de Roles</h1>
+{% extends 'base.html' %}
 
 
-    <ul>
-        
-        {% for roles in roles_list  %}
-            <li>{{ roles.name }}</li>
-        {% endfor %}
-            
-    </ul>
-</body>
-</html>
+{% block title %}
+    Listar usuarios
+{% endblock title %}
+{% block content %}
+<section class="section">
+    <h1 class="title">Lista de Roles</h1>
+    <div class="container is-fluid">
+        <div class="notification">
+            <div class="fixed-grid has-4-cols">
+                {% for roles in roles_list  %}
+                <div class="grid">
+                  <div class="cell">{{ roles.name }}</div>
+                  <div class="cell"><a href="{% url 'role_app:role_detail' roles.id %}">Ver</a></div>
+                  <div class="cell"><a href="{% url 'role_app:update_role' roles.id %}">Modificar</a></div>
+                  <div class="cell"><a href="{% url 'role_app:delete_role' roles.id %}">Eliminar</a></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
+</section>
+{% endblock content %}

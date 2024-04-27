@@ -13,7 +13,7 @@ urlpatterns = [
     path(
         "rol/<pk>/",
         views.RoleDetailView.as_view(),
-        name="role_detil",
+        name="role_detail",
     ),
     path(
         "add-rol/",

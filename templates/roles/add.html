@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Registrar rol</h1>
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Registrar rol
+{% endblock title %}
+{% block content %}
+<section class="section">
+    <h1 class="title">Registrar rol</h1>
 
     <form method="POST">{% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Agregar</button>
+        <button type="submit"></button>
+        <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-link">Agregar</button>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Cancelar</button>
+            </div>
+          </div>
     </form>
-</body>
-</html>
+</section>
+{% endblock content %}

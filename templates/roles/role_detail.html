@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Detalle del rol {{roles.name}}</h1>
+{% extends 'base.html' %}
 
-    <h3>Toda su información:</h3>
+
+{% block title %}
+    Detalle del rol
+{% endblock title %}
+{% block content %}
+<section class="section">
+    <h1 class="title">Detalle del rol {{roles.name}}</h1>
+
+    <h2 class="subtitle">Toda su información:</h2>
     <p>Id {{roles.id}}</p>
     <p>Menu {{roles.Menu}}</p>
-</body>
-</html>
+</section>
+
+{% endblock content %}
 
