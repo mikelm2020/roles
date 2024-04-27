@@ -127,6 +127,11 @@
     </div>
   </nav>
     
+    {% if request.user.is_authenticated %}
+        {% include 'home/panel.html' %}
+    {% endif %}
+      
+
     <main>
         {% block content %}
     

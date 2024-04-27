@@ -13,7 +13,7 @@ class Roles(AbstractModel):
     """
 
     name = models.CharField(max_length=15, null=False)
-    menu = models.ManyToManyField(Menu, blank=False, null=False)
+    menu = models.ManyToManyField(Menu)
 
     class Meta:
         verbose_name = "Rol"

@@ -1,22 +1,17 @@
-{% extends 'base.html' %}
-
-
-{% block title %}
-    Panel de usuario
-{% endblock title %}
-
-
-
-{% block content %}
 <section class="section">
     <h1 class="title">Panel de usuario</h1>
     <h2 class="subtitle">Bienvenido: {{user.name}}</h2>
-    <ul>    
-        <li><a href="{% url 'users_app:user_logout' %}">Cerrar sesión</a></li>
-        <li><a href="{% url 'users_app:update_password' %}">Cambiar contraseña</a></li>
-    </ul>
+    <aside class="menu">
+        <p class="menu-label">Usuarios</p>
+        <ul class="menu-list">
+          <li><a href="{% url 'users_app:user_list' %}">Listar</a></li>
+        </ul>
+        <p class="menu-label">Roles</p>
+        <ul class="menu-list">
+          <li><a href="{% url 'role_app:role_add' %}">Registrar</a></li>
+          <li><a href="{% url 'role_app:role_list' %}">Listar</a></li>
+        </ul>
+      </aside>
 </section>
-    
 
-{% endblock content %}
     

@@ -15,13 +15,17 @@ from .models import Roles
 
 class RoleListView(LoginRequiredMixin, ListView):
     model = Roles
-    template_name = "roles/role_list.html"
+    template_name = "roles/roles_list.html"
     context_object_name = "roles_list"
 
     paginate_by = 10
     ordering = ["-id"]
     queryset = Roles.objects.all()
     login_url = reverse_lazy("users_app:user_login")
+
+    # def get_queryset(self):
+    #     role = Roles.objects.get(id=12)
+    #     return role.menu.all()
 
 
 class RoleDetailView(LoginRequiredMixin, DetailView):

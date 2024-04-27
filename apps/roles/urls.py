@@ -28,11 +28,11 @@ urlpatterns = [
     path(
         "update-rol/<pk>/",
         views.RoleUpdateView.as_view(),
-        name="update_rol",
+        name="role_update",
     ),
     path(
         "delete-rol/<pk>/",
         views.RoleDeleteView.as_view(),
-        name="delete_rol",
+        name="role_delete",
     ),
 ]

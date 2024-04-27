@@ -23,7 +23,33 @@
               {% endfor %}
           </div>
       </div>
-    </div>
+  </div>
+  <div class="container is-fluid">
+        
+    {% if is_paginated  %}
+    <nav class="pagination" role="navigation" aria-label="pagination">
+        
+        {% if page_obj.has_previous %}
+        <a href="?page={{page_obj.previous_page_number}}" class="pagination-previous">Atras</a>    
+        {% endif %}
+            
+        {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}" class="pagination-next">Siguiente</a>
+        {% endif %}
+
+        <nav class="pagination-list">
+          
+          {% for pagina in paginator.page_range  %}
+          <li>
+            <a href="?page={{pagina}}" class="pagination-link" aria-label="Siguiente pagina">{{pagina}}</a>
+          </li>
+          {% endfor %}
+            
+          
+        </nav>
+    </nav>    
+    {% endif %}
+</div>
 </section>
 
     
