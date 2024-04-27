@@ -5,10 +5,19 @@
     Registrar usuario
 {% endblock title %}
 {% block content %}
-    <h1>Registrar usuario</h1>
-
+<section class="section">
+    <h1 class="title">Registrar usuario</h1>
     <form method="POST">{% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Registrar</button>
+        <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-link">Registrar</button>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Cancelar</button>
+            </div>
+          </div>
     </form>
+</section>
+
 {% endblock content %}

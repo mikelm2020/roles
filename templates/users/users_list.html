@@ -5,30 +5,26 @@
     Listar usuarios
 {% endblock title %}
 {% block content %}
-<h1>Lista de usuarios</h1>
-<div class="container is-fluid">
-    <div class="notification">
-        <div class="fixed-grid has-7-cols">
-            {% for user in users_list  %}
-            <div class="grid">
-              <div class="cell">{{ user.name }}</div>
-              <div class="cell">{{user.last_name}}</div>
-              <div class="cell">{{user.age}}</div>
-              <div class="cell">{{user.role}}</div>
-              <div class="cell">Ver</div>
-              <div class="cell">Modificar</div>
-              <div class="cell">Eliminar</div>
-            </div>
-            {% endfor %}
-        </div>
-        <!-- <ul>
-            
-            
-                <li> -   - - </li>
-            
-                
-        </ul> -->
+<section class="section">
+  <h1 class="title">Lista de usuarios</h1>
+  <div class="container is-fluid">
+      <div class="notification">
+          <div class="fixed-grid has-7-cols">
+              {% for user in users_list  %}
+              <div class="grid">
+                <div class="cell">{{ user.name }}</div>
+                <div class="cell">{{user.last_name}}</div>
+                <div class="cell">{{user.age}}</div>
+                <div class="cell">{{user.role}}</div>
+                <div class="cell"><a href="{% url 'users_app:user_detail' user.id %}">Ver</a></div>
+                <div class="cell"><a href="{% url 'users_app:update_user' user.id %}">Modificar</a></div>
+                <div class="cell"><a href="{% url 'users_app:delete_user' user.id %}">Eliminar</a></div>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
     </div>
-  </div>
+</section>
+
     
 {% endblock content %}

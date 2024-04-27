@@ -2,18 +2,12 @@
 
 
 {% block title %}
-    Panel de usuario
+    Home
 {% endblock title %}
 
 
 
 {% block content %}
     
-    <h1>Panel de usuario</h1>
-    <h3>Bienvenido: {{user.name}}</h3>
-    <ul>
-        <li><a href="{% url 'users_app:user_logout' %}">Cerrar sesión</a></li>
-        <li><a href="{% url 'users_app:update_password' %}">Cambiar contraseña</a></li>
-    </ul>
 {% endblock content %}
     

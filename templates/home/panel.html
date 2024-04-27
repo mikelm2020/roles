@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Panel de usuario
+{% endblock title %}
+
+
+
+{% block content %}
+<section class="section">
+    <h1 class="title">Panel de usuario</h1>
+    <h2 class="subtitle">Bienvenido: {{user.name}}</h2>
+    <ul>
+        <li><a href="{% url 'users_app:user_logout' %}">Cerrar sesión</a></li>
+        <li><a href="{% url 'users_app:update_password' %}">Cambiar contraseña</a></li>
+    </ul>
+</section>
+    
+
+{% endblock content %}
+    

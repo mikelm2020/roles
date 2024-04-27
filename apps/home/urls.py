@@ -8,6 +8,11 @@ urlpatterns = [
     path(
         "",
         views.HomePage.as_view(),
+        name="home",
+    ),
+    path(
+        "panel",
+        views.Panel.as_view(),
         name="panel",
     ),
 ]

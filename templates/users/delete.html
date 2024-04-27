@@ -5,9 +5,19 @@
     Eliminar usuario
 {% endblock title %}
 {% block content %}
-    <h1>Eliminar</h1>
+<section class="section">
+    <h1 class="title">Eliminar</h1>
     <form method="POST">{% csrf_token %}
-        <p>Confirme que desea eliminar</p>
-        <button type="submit">Confirmar</button>
+        <h2 class="subtitle">Confirme que desea eliminar</h2>
+        <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-link">Confirmar</button>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Cancelar</button>
+            </div>
+          </div>
     </form>
+</section>
+
 {% endblock content %}

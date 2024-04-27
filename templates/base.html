@@ -38,7 +38,7 @@
       </div>
     </div>
   </div> -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <!-- <a class="navbar-item" href="https://bulma.io">
         <svg width="640" height="160" viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,16 +58,16 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <a class="navbar-item" href="{% url 'home_app:home' %}">
           Home
         </a>
   
         <!-- <a class="navbar-item">
           Documentation
         </a> -->
-  
+        {% for menu, options in menus.items %}
         <div class="navbar-item has-dropdown is-hoverable">
-          {% for menu, options in menus.items %}
+          
           <a class="navbar-link">
             {{ menu.name }}
           </a>
@@ -89,17 +89,18 @@
               Report an issue
             </a> -->
           </div>
-          {% endfor %}
+          
         </div>
+        {% endfor %}
       </div>
   
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
+            <a class="button is-primary" href="{% url 'users_app:user_add' %}">
+              <strong>Registrar</strong>
             </a>
-            <a class="button is-light">
+            <a class="button is-light" href="{% url 'users_app:user_login' %}">
               Log in
             </a>
           </div>

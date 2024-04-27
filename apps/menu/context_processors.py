@@ -13,6 +13,4 @@ def menu_context_processor(request):
     for menu in role_menus:
         options = OptionMenu.objects.filter(menu=menu).order_by("id")
         menu_dict[menu] = options
-        print(f"Debug: Opciones del menú {menu.name}: {list(options)}")
-        # menu_dict[menu] = OptionMenu.objects.filter(menu=menu).order_by("id")
     return {"menus": menu_dict}
