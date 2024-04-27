@@ -116,7 +116,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
 class Login(FormView):
     template_name = "users/login.html"
     form_class = LoginForm
-    success_url = reverse_lazy("home_app:panel")
+    success_url = reverse_lazy("home_app:home")
 
     def form_valid(self, form):
         user = authenticate(
@@ -132,7 +132,7 @@ class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect(
-            reverse("users_app:user_login"),
+            reverse("home_app:home"),
         )
 
 
