@@ -34,6 +34,7 @@ class User(PermissionsMixin, AbstractBaseUser, AbstractModel):
     role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=True, blank=True)
     register_code = models.CharField(max_length=6, blank=True)
     is_active = models.BooleanField(default=False)
+    session_duration = models.IntegerField(default=3600)
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
